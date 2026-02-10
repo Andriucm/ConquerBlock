@@ -1,5 +1,6 @@
-import { mockCharacters } from '@/mocks/charactersMock'
 import type { Character } from '@/models/characterModel'
+import { useAuthStore } from '@/stores/useAuthStore'
+import { mockCharacters } from '@/mocks/charactersMock'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
@@ -24,7 +25,9 @@ mock.onPost('/api/register').reply((config) => {
   const { email, password } = JSON.parse(config.data)
 
   if (email && password) {
+    const authStore = useAuthStore()
     const token = `mocked_token`
+    authStore.setToken(token)
     return [200, { token, message: 'User registered successfully' }]
   } else {
     return [400, { message: 'Missing email or password' }]
@@ -35,8 +38,9 @@ mock.onPost('/api/login').reply((config) => {
   const { email, password } = JSON.parse(config.data)
 
   if (email === 'test@test.com' && password === 'testtest') {
+    const authStore = useAuthStore()
     const token = `mocked_token`
-    localStorage.setItem('token', token)
+    authStore.setToken(token)
     return [200, { token, message: 'User logged in successfully' }]
   } else {
     return [401, { message: 'Invalid email or password' }]
@@ -68,10 +72,10 @@ mock.onPut(/\/api\/characters\/\d+/).reply((config) => {
 
 mock.onDelete(/\/api\/characters\/\d+/).reply((config) => {
   const id = parseInt(config.url!.split('/').pop()!)
- const index = mockCharacters.findIndex((character) => {
-   return character.id === id
- })
-  const foundCharacter = mockCharacters[id]
+  const index = mockCharacters.findIndex((character) => {
+    return character.id === id
+  })
+  const foundCharacter = mockCharacters[index]
   if (!foundCharacter) {
     return [404, { message: 'Character not found' }]
   }
