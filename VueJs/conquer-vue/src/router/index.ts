@@ -3,7 +3,8 @@ import LoginPage from '@/views/Login/LoginPage.vue'
 import RegisterPage from '@/views/Register/RegisterPage.vue'
 import CharactersPage from '@/views/Private/Characters/CharactersPage.vue'
 import { useAuthStore } from '@/stores/useAuthStore'
-import { useCharacterStore } from '@/stores/useCaracterStore'
+import { useCharacterStore } from '@/stores/useCharacterStore'
+import CharacterForm from '@/views/Private/Characters/CharacterForm/CharacterForm.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -11,6 +12,8 @@ const router = createRouter({
     { path: '/login', name: 'login', component: LoginPage },
     { path: '/register', name: 'register', component: RegisterPage },
     { path: '/characters', name: 'charactersPage', component: CharactersPage },
+    { path: '/characters/new', name: 'newCharactersPage', component: CharacterForm },
+    { path: '/characters/edit/:id', name: 'editCharactersPage', component: CharacterForm },
   ],
 })
 
@@ -23,10 +26,9 @@ router.beforeEach(async (to, from, next) => {
   const token = authStore?.token
 
   if (authRequired) {
-    // TODO Iniciar un store
     const characterStore = useCharacterStore()
     characterStore.init()
-    
+
     if (!token) {
       return next({ name: 'login' })
     }

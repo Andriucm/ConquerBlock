@@ -51,8 +51,9 @@ mock.onGet(`/api/characters`).reply(200, mockCharacters)
 
 mock.onPost(`/api/characters`).reply((config) => {
   const characterData: Character = JSON.parse(config.data)
-  mockCharacters.push(characterData)
-  return [200, characterData]
+  const formattedCharacter = { ...characterData, id: mockCharacters.length + 1 }
+  mockCharacters.push(formattedCharacter)
+  return [200, formattedCharacter]
 })
 
 // api/characters/1

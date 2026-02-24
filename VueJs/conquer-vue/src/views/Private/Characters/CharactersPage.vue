@@ -5,7 +5,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useCharacterStore } from '@/stores/useCaracterStore';
+import { useCharacterStore } from '@/stores/useCharacterStore';
 import { computed } from 'vue';
 import CharacterList from './CharactersList/CharacterList.vue';
 

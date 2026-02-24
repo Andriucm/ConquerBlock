@@ -1,13 +1,13 @@
 <template>
   <div>
     <h2>{{ character.name }} {{ character.lastName }}</h2>
-    <button >Editar</button>
+    <button @click="editCharacter(character.id)">Editar</button>
     <button @click="removeCharacter(character.id)">Borrar</button>
   </div>
 </template>
 <script setup lang="ts">
 import { type Character } from '@/models/characterModel';
-import { useCharacterStore } from '@/stores/useCaracterStore';
+import { useCharacterStore } from '@/stores/useCharacterStore';
 import { useRouter } from 'vue-router';
 defineProps<{
   character: Character
@@ -16,9 +16,8 @@ defineProps<{
 const characterStore = useCharacterStore()
 const router = useRouter()
 
-const editCharacter = (character: Character) => {
-  //TODO falta la navegacion hacia la edicion
-  // router.push()
+const editCharacter = (id: number) => {
+  router.push({ name: 'editCharactersPage', params: { id: id } })
 }
 const removeCharacter = async (id: number) => {
   await characterStore.deleteCharacter(id);
