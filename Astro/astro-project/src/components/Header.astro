@@ -1,0 +1,140 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+type Props = {
+	title: string;
+};
+
+const { title } = Astro.props as Props;
+const currentLocale: "es" | "en" = Astro.currentLocale === "en" ? "en" : "es";
+const currentPath = Astro.url.pathname;
+
+type NavLink = {
+	link: string;
+	text: string;
+};
+
+const links: Record<"es" | "en", NavLink[]> = {
+	es: [
+		{
+			link: getRelativeLocaleUrl(currentLocale, "/"),
+			text: "Inicio",
+		},
+		{
+			link: getRelativeLocaleUrl(currentLocale, "/about"),
+			text: "Acerca de",
+		},
+		{
+			link: getRelativeLocaleUrl(currentLocale, "/blog"),
+			text: "Blog",
+		},
+		{
+			link: "/en/",
+			text: "EN",
+		},
+	],
+	en: [
+		{
+			link: getRelativeLocaleUrl(currentLocale, "/"),
+			text: "Home",
+		},
+		{
+			link: getRelativeLocaleUrl(currentLocale, "/about"),
+			text: "About",
+		},
+		{
+			link: getRelativeLocaleUrl(currentLocale, "/blog"),
+			text: "Blog",
+		},
+		{
+			link: "/es/",
+			text: "ES",
+		},
+	],
+};
+---
+
+<header>
+	<a class="brand" href={getRelativeLocaleUrl(currentLocale, "/")}>Conquer Blog</a>
+	<nav>
+		{
+			links[currentLocale].map((item: NavLink) => {
+				return (
+					<a href={item.link} aria-current={currentPath === item.link ? "page" : undefined}>
+						{item.text}
+					</a>
+				);
+			})
+		}
+	</nav>
+	<p class="page-title">{title}</p>
+</header>
+
+<style>
+	header {
+		position: sticky;
+		top: 0.7rem;
+		z-index: 10;
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		gap: 1rem;
+		padding: 0.8rem 1rem;
+		margin: 0.8rem auto;
+		max-width: 1040px;
+		border-radius: 16px;
+		border: 1px solid var(--line);
+		background: color-mix(in srgb, var(--surface) 92%, transparent);
+		backdrop-filter: blur(8px);
+		box-shadow: var(--shadow);
+	}
+
+	.brand {
+		font-family: "Fraunces", Georgia, serif;
+		font-size: 1.2rem;
+		font-weight: 700;
+		color: var(--text);
+	}
+
+	nav {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	nav a {
+		padding: 0.45rem 0.8rem;
+		border-radius: 999px;
+		border: 1px solid transparent;
+		color: var(--text-soft);
+		font-weight: 700;
+	}
+
+	nav a[aria-current="page"] {
+		background: linear-gradient(120deg, rgba(15, 118, 110, 0.16), rgba(220, 107, 47, 0.16));
+		border-color: var(--line);
+		color: var(--text);
+	}
+
+	.page-title {
+		margin: 0;
+		font-size: 0.92rem;
+		font-weight: 700;
+		color: var(--text-soft);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	@media (max-width: 760px) {
+		header {
+			top: 0;
+			grid-template-columns: 1fr;
+			text-align: center;
+		}
+
+		.page-title {
+			display: none;
+		}
+	}
+</style>

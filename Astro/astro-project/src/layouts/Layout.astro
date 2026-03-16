@@ -1,0 +1,50 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import "../styles/global.css";
+
+type Props = {
+	title: string;
+};
+
+const { title } = Astro.props as Props;
+const lang = Astro.currentLocale === "en" ? "en" : "es";
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+	</head>
+	<body>
+		<Header title={title} />
+		<main class="main-content">
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.main-content {
+		max-width: 1040px;
+		margin: 0 auto;
+		padding: clamp(1rem, 2vw, 1.6rem);
+		display: grid;
+		gap: 1.2rem;
+		animation: fade-in 420ms ease-out;
+	}
+
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>

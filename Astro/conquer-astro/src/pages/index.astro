@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Title from "../components/astro/Title.astro";
+const list = ["valor 1", "valor 2", "valor 3"];
+const condition = false;
+---
+
+<Layout pageTitle="Home">
+	<Title title="Hola mundo" />
+	<ul>
+		{list.map((item) => <li> {item} </li>)}
+	</ul>
+
+	<button id="my-btn"> Click me!</button>
+</Layout>
+
+<script>
+	const buttonElement = document.querySelector("#my-btn");
+
+	buttonElement?.addEventListener("click", () => {
+		window.alert("hola");
+	});
+</script>

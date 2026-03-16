@@ -1,0 +1,50 @@
+---
+type Props = {
+	slug: string;
+	title: string;
+	excerpt: string;
+};
+
+const lang = Astro.currentLocale === "en" ? "en" : "es";
+const { slug, title, excerpt } = Astro.props as Props;
+---
+
+<article class="post-card">
+	<h2>
+		<a href={`/${lang}/blog/${slug}`}>{title}</a>
+	</h2>
+	<p>{excerpt}</p>
+	<a class="read-more" href={`/${lang}/blog/${slug}`}>
+		{lang === "es" ? "Leer articulo" : "Read article"} ->
+	</a>
+</article>
+
+<style>
+	.post-card {
+		border: 1px solid var(--line);
+		background: linear-gradient(180deg, var(--surface), var(--surface-alt));
+		padding: 1.15rem;
+		border-radius: 14px;
+		margin: 0.4rem 0;
+		box-shadow: var(--shadow);
+	}
+
+	h2 {
+		margin-bottom: 0.4rem;
+	}
+
+	.post-card h2 a {
+		text-decoration: none;
+		color: var(--text);
+	}
+
+	p {
+		margin: 0 0 0.8rem;
+	}
+
+	.read-more {
+		font-weight: 700;
+		font-size: 0.95rem;
+		color: var(--brand);
+	}
+</style>

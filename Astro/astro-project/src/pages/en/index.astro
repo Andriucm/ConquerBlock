@@ -1,0 +1,85 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/Card.astro";
+
+const posts: CollectionEntry<"blog">[] = await getCollection("blog", ({ id }: { id: string }) => id.startsWith("en/"));
+---
+
+<Layout title="Home">
+	<section class="hero">
+		<p class="eyebrow">Conquer Blog</p>
+		<h1>Practical insights for shipping better web products</h1>
+		<p>
+			We publish Astro guides, frontend architecture notes, and implementation patterns for teams that
+			want to move fast without sacrificing quality.
+		</p>
+		<div class="actions">
+			<a class="button-link" href="/en/blog/">Explore all articles</a>
+			<a class="ghost" href="/en/about/">About this project</a>
+		</div>
+	</section>
+
+	<section>
+		<h2>Latest articles</h2>
+		<p>A curated set of technical posts with examples you can apply right away.</p>
+		<div class="posts-grid">
+			{
+				posts.map((post) => {
+					return <Card {...post.data} slug={post.slug.replace(/^en\//, "")} />;
+				})
+			}
+		</div>
+	</section>
+
+	<section class="pillars">
+		<h2>What you will find here</h2>
+		<ul>
+			<li>Step-by-step Astro workflows and content architecture patterns.</li>
+			<li>Internationalization techniques for multilingual websites.</li>
+			<li>UI and DX improvements that make projects feel production-ready.</li>
+		</ul>
+	</section>
+</Layout>
+
+<style>
+	.hero {
+		display: grid;
+		gap: 0.9rem;
+		background: linear-gradient(140deg, rgba(15, 118, 110, 0.14), rgba(220, 107, 47, 0.12));
+	}
+
+	.eyebrow {
+		margin: 0;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.84rem;
+	}
+
+	.actions {
+		display: flex;
+		gap: 0.65rem;
+		flex-wrap: wrap;
+	}
+
+	.ghost {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.62rem 0.95rem;
+		border-radius: 999px;
+		border: 1px solid var(--line);
+		background: rgba(255, 255, 255, 0.7);
+		font-weight: 700;
+	}
+
+	.posts-grid {
+		display: grid;
+		gap: 0.8rem;
+		margin-top: 0.6rem;
+	}
+
+	.pillars ul {
+		margin: 0.5rem 0 0;
+	}
+</style>

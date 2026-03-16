@@ -1,0 +1,57 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import Layout from "../../../layouts/Layout.astro";
+
+export const getStaticPaths = (async () => {
+	const posts = await getCollection("blog", ({ id }: { id: string }) => id.startsWith("en/"));
+	return posts.map((post: CollectionEntry<"blog">) => {
+		return {
+			params: {
+				slug: post.slug.replace(/^en\//, ""),
+			},
+			props: {
+				post,
+			},
+		};
+	});
+}) satisfies GetStaticPaths;
+
+type Props = {
+	post: CollectionEntry<"blog">;
+};
+
+const { post } = Astro.props as Props;
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title}>
+	<article class="post-view">
+		<a class="back" href="/en/blog/">Back to blog</a>
+		<h1>{post.data.title}</h1>
+		<p class="excerpt">{post.data.excerpt}</p>
+		<Content />
+	</article>
+</Layout>
+
+<style>
+	.post-view {
+		background: var(--surface);
+		border: 1px solid var(--line);
+		border-radius: 18px;
+		box-shadow: var(--shadow);
+		padding: clamp(1rem, 2.5vw, 2rem);
+	}
+
+	.back {
+		display: inline-flex;
+		margin-bottom: 1rem;
+		font-weight: 700;
+	}
+
+	.excerpt {
+		font-size: 1.1rem;
+		margin-bottom: 1.4rem;
+		max-width: 65ch;
+	}
+</style>

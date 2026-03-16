@@ -1,0 +1,47 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Card from "../../../components/Card.astro";
+import Layout from "../../../layouts/Layout.astro";
+
+const posts: CollectionEntry<"blog">[] = await getCollection("blog", ({ id }: { id: string }) => id.startsWith("en/"));
+---
+
+<Layout title="Blog">
+	<section class="hero">
+		<p class="eyebrow">Archive</p>
+		<h1>English blog</h1>
+		<p>
+			Browse practical articles about Astro workflows, internationalization, and project structure.
+		</p>
+	</section>
+
+	<section>
+		<h2>All articles</h2>
+		<div class="list">
+			{
+				posts.map((post) => {
+					return <Card {...post.data} slug={post.slug.replace(/^en\//, "")} />;
+				})
+			}
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.hero {
+		background: linear-gradient(145deg, rgba(220, 107, 47, 0.18), rgba(15, 118, 110, 0.14));
+	}
+
+	.eyebrow {
+		margin: 0;
+		text-transform: uppercase;
+		font-size: 0.84rem;
+		letter-spacing: 0.08em;
+		font-weight: 700;
+	}
+
+	.list {
+		display: grid;
+		gap: 0.8rem;
+	}
+</style>

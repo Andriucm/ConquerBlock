@@ -1,0 +1,16 @@
+---
+import type { GetStaticPaths } from "astro";
+export const getStaticPaths = (() => {
+	return [
+        { params: { author: "Pedro" } },
+        { params: { author: "Luis" } },
+        { params: { author: "Maria" } },
+    ];
+}) satisfies GetStaticPaths;
+
+const {author} = Astro.params
+---
+
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis quas dicta repudiandae quaerat earum ipsa eaque natus provident temporibus est doloribus, voluptate sit suscipit incidunt accusantium exercitationem illum odit enim?</p>
+
+<p>Author: {author}</p>

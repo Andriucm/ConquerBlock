@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Source+Sans+3:wght@400;500;600;700&display=swap");
+
+:root {
+	--bg: #f6f3eb;
+	--bg-strong: #efe8d8;
+	--surface: #fffdf8;
+	--surface-alt: #f9f4e8;
+	--text: #1d2522;
+	--text-soft: #46514d;
+	--brand: #0f766e;
+	--brand-2: #dc6b2f;
+	--line: #d8ceb9;
+	--shadow: 0 18px 40px rgba(25, 35, 31, 0.12);
+	--radius: 18px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: "Source Sans 3", Georgia, serif;
+	line-height: 1.65;
+	color: var(--text);
+	background:
+		radial-gradient(circle at 6% 3%, rgba(15, 118, 110, 0.16), transparent 22%),
+		radial-gradient(circle at 96% 2%, rgba(220, 107, 47, 0.18), transparent 24%),
+		linear-gradient(180deg, var(--bg) 0%, #f8f5ef 100%);
+	min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-family: "Fraunces", Georgia, serif;
+	line-height: 1.15;
+	letter-spacing: 0.01em;
+	margin: 0 0 0.6rem;
+}
+
+h1 {
+	font-size: clamp(2rem, 5vw, 3.2rem);
+}
+
+h2 {
+	font-size: clamp(1.35rem, 3.2vw, 2rem);
+}
+
+p,
+li {
+	font-size: 1.08rem;
+	color: var(--text-soft);
+}
+
+a {
+	color: var(--brand);
+	text-decoration: none;
+	transition: color 180ms ease, transform 180ms ease;
+}
+
+a:hover {
+	color: #0a5953;
+}
+
+img {
+	max-width: 100%;
+	display: block;
+}
+
+section {
+	background: color-mix(in srgb, var(--surface) 92%, transparent);
+	border: 1px solid var(--line);
+	border-radius: var(--radius);
+	padding: clamp(1rem, 2.4vw, 2rem);
+	box-shadow: var(--shadow);
+	backdrop-filter: blur(1px);
+}
+
+ul {
+	padding-left: 1.2rem;
+}
+
+code {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+	background: var(--surface-alt);
+	padding: 0.1rem 0.35rem;
+	border-radius: 6px;
+	font-size: 0.9em;
+	border: 1px solid var(--line);
+}
+
+pre {
+	overflow-x: auto;
+	padding: 1rem;
+	border-radius: 12px;
+	border: 1px solid var(--line);
+	background: #1a2220;
+	color: #f4efe4;
+}
+
+blockquote {
+	margin: 1.4rem 0;
+	padding: 0.9rem 1rem;
+	border-left: 5px solid var(--brand-2);
+	background: var(--surface-alt);
+	border-radius: 0 10px 10px 0;
+}
+
+.button-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.68rem 1rem;
+	border-radius: 999px;
+	background: linear-gradient(135deg, var(--brand), #0a5c56);
+	color: #fff;
+	font-weight: 700;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	box-shadow: 0 10px 22px rgba(15, 118, 110, 0.32);
+}
+
+.button-link:hover {
+	color: #fff;
+	transform: translateY(-1px);
+}
+
+@media (max-width: 720px) {
+	p,
+	li {
+		font-size: 1rem;
+	}
+}

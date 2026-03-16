@@ -1,0 +1,63 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="About me">
+	<section>
+		<h1>About this project</h1>
+		<p>
+			Conquer Blog is a practical content lab where we share real frontend decisions, architecture
+			patterns, and UX improvements for multilingual websites.
+		</p>
+	</section>
+
+	<section class="grid-two">
+		<article>
+			<h2>Mission</h2>
+			<p>
+				Help teams and solo developers move from a minimal site to a polished, maintainable, production
+				ready web platform.
+			</p>
+		</article>
+		<article>
+			<h2>Approach</h2>
+			<p>
+				We mix Astro best practices, performance, accessibility, and internationalization in a workflow
+				that stays simple and repeatable.
+			</p>
+		</article>
+	</section>
+
+	<section>
+		<h2>What we publish</h2>
+		<ul>
+			<li>Hands-on tutorials for routes, layouts, and content collections.</li>
+			<li>Reusable UI patterns for content-heavy websites.</li>
+			<li>Code quality practices for growing engineering teams.</li>
+		</ul>
+		<p>
+			Ready to start? Visit the <a href="/en/blog/">blog section</a> and explore the examples.
+		</p>
+	</section>
+</Layout>
+
+<style>
+	.grid-two {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.grid-two article {
+		padding: 1rem;
+		background: color-mix(in srgb, var(--surface-alt) 84%, white);
+		border: 1px solid var(--line);
+		border-radius: 14px;
+	}
+
+	@media (max-width: 760px) {
+		.grid-two {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

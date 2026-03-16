@@ -1,0 +1,35 @@
+---
+const currentLocale: "es" | "en" = Astro.currentLocale === "en" ? "en" : "es";
+const footerText: Record<"es" | "en", string> = {
+	es: "Historias, guias y recursos para construir mejor en la web.",
+	en: "Stories, guides, and resources to build better on the web.",
+};
+---
+
+<footer>
+	<p>{footerText[currentLocale]}</p>
+	<small>{currentLocale === "es" ? "Hecho con Astro 5" : "Built with Astro 5"}</small>
+</footer>
+<style>
+	footer {
+		text-align: center;
+		margin: 1.4rem auto 0.8rem;
+		max-width: 1040px;
+		padding: 1rem;
+		border-radius: 14px;
+		border: 1px solid var(--line);
+		background: color-mix(in srgb, var(--surface-alt) 90%, transparent);
+		color: var(--text-soft);
+	}
+
+	p {
+		margin: 0;
+		font-weight: 600;
+	}
+
+	small {
+		display: block;
+		margin-top: 0.2rem;
+		font-size: 0.82rem;
+	}
+</style>

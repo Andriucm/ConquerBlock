@@ -1,0 +1,33 @@
+---
+import type { GetStaticPaths } from "astro";
+export const getStaticPaths = () => {
+	const pages = [
+		{
+			title: "my-movie",
+			director: "Andrei Catalin",
+			year: "2026",
+			pageTitle: "My Movie",
+		},
+		{
+			title: "lord-of-the-gipsies",
+			director: "Javier Escuela",
+			year: "2024",
+			pageTitle: "Lord of the gipsies",
+		},
+	];
+	return pages.map(({ title, director, year, pageTitle }) => {
+		return {
+			params: { title },
+			props: { director, year, pageTitle },
+		};
+	});
+};
+
+const { director, year, pageTitle } = Astro.props;
+---
+
+<h1>{pageTitle}</h1>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis quas dicta repudiandae quaerat earum ipsa eaque natus provident temporibus est doloribus, voluptate sit suscipit incidunt accusantium exercitationem illum odit enim?</p>
+
+<p>Director: {director}</p>
+<p>Year: {year}</p>
