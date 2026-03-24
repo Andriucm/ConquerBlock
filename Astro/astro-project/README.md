@@ -41,3 +41,28 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Workspace Governance
+
+### Repository role
+
+- Cohort: B
+- Role: Transitory mirror of `C:\code\astro-project`
+- State: no direct functional edits
+
+### Mirror policy
+
+Direct feature/fix commits are blocked in this mirror. Accepted changes are limited to:
+
+- synchronization metadata,
+- parity notes against canonical anchor commit,
+- repository status documentation.
+
+### Deprecation checkpoint
+
+At each planned checkpoint, this mirror must be explicitly marked as:
+
+- `retain` (keeps transitory mirror mode), or
+- `deprecate` (progress to archive once exit criteria are met).
+
+Exit criteria target: 2 consecutive sync cycles with 0 mirror-only commits.

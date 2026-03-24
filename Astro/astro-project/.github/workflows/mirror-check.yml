@@ -1,0 +1,38 @@
+name: Mirror Anchor Check
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  parity-check:
+    runs-on: ubuntu-latest
+    env:
+      CANONICAL_ANCHOR: ${{ vars.CANONICAL_ANCHOR }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate declared anchor
+        shell: bash
+        run: |
+          if [ -z "$CANONICAL_ANCHOR" ]; then
+            echo "Missing repository variable CANONICAL_ANCHOR (declared reference commit)."
+            exit 1
+          fi
+          if ! git cat-file -e "$CANONICAL_ANCHOR^{commit}" 2>/dev/null; then
+            echo "Declared anchor '$CANONICAL_ANCHOR' is not available in this repo history."
+            exit 1
+          fi
+
+      - name: Fail on divergence from anchor
+        shell: bash
+        run: |
+          if [ "$(git rev-parse HEAD)" != "$CANONICAL_ANCHOR" ]; then
+            echo "Mirror diverges from declared anchor commit: $CANONICAL_ANCHOR"
+            git --no-pager log --oneline --max-count=10
+            exit 1
+          fi
+          echo "Mirror is aligned with declared anchor commit."
