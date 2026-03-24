@@ -46,3 +46,28 @@ bun run build
 ```sh
 bun lint
 ```
+
+## Workspace Governance
+
+### Rol del repositorio
+
+- Cohorte: B
+- Rol: Espejo transitorio de `C:\code\vue-template`
+- Estado: read-only operativo para cambios funcionales
+
+### Restriccion de edicion
+
+No se permiten cambios funcionales directos en este repositorio. Solo se aceptan:
+
+- actualizaciones de sincronizacion desde el canonico,
+- metadata de paridad (commit ancla, estado de ventana, checklist),
+- documentacion de estado del espejo.
+
+### Criterio de violacion de politica
+
+Se considera violacion cualquier PR que modifique codigo funcional (`src/`, `components/`, `views/`) sin cambio previo equivalente en el canonico.
+
+### Dependencias y lockfile
+
+- Package manager declarado: `bun`
+- Lockfile esperado en raiz: `bun.lock`
